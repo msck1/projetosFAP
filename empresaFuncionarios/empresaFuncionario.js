@@ -149,63 +149,58 @@ empresa.presidente.push(readlineSync.question("Digite o nome do presidente:"))
 function alterarEmpresa() {
 
     listarEmpresas()
-    let empresaNomeTeste = readlineSync.question("Digite o nome da empresa que deseja alterar: ")
-    let achaNomeEmpresa = empresa.nome.find(element => element === empresaNomeTeste)
-    if (empresaNomeTeste === achaNomeEmpresa) {
+    console.log("Deseja alterar o nome da empresa ou o presidente ?")
+    let umDois = readlineSync.questionInt("Digite 1 para nome 2 para presidente")
+    if (umDois == 1) {
 
-        console.log("Deseja alterar o nome da empresa ou o presidente ?")
-        let umDois = readlineSync.questionInt("Digite 1 para nome 2 para presidente")
-            if (umDois == 1) {
+        let index = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ");
+        let valor = readlineSync.question("Digite o novo nome: ");
+        empresa.nome.splice(index, 1, valor)
+        console.log("Nome alterado com sucesso")
 
-                let empresaNomeNovo = readlineSync.question("Digite o novo nome da empresa: ")
-                empresa.nome = empresaNomeNovo;
-                console.log("Nome da empresa alterado com sucesso")
-
-            } else if (umDois == 2) {
-    
-                let presidenteNomeNovo = readlineSync.question("Digite o novo nome do presidente: ")
-                empresa.presidente = presidenteNomeNovo
-                console.log("Presidente alterado com sucesso")
-            }
-        
     } else {
 
-        console.log("Empresa nao encontrada")
-        
-    }   
+        let index = readlineSync.questionInt("Escolha a posição do presidente que deseja alterar: ");
+        let valor = readlineSync.question("Digite o novo presidente: ");
+        empresa.presidente.splice(index, 1, valor)
+        console.log("Presidente alterado com sucesso")
+
+    }
 }
+
 
 function excluirEmpresa() {
 
     listarEmpresas()
-    let empresaNomeTeste = readlineSync.question("Digite o nome da empresa que deseja alterar: ")
-    let achaNomeEmpresa = empresa.nome.find(element => element === empresaNomeTeste)
-    if (empresaNomeTeste === achaNomeEmpresa) {
 
-        console.log("Deseja excluir o nome da empresa ou o presidente ?")
-        let umDois = readlineSync.questionInt("Digite 1 para nome 2 para presidente")
+        console.log("Deseja excluir o nome da empresa, o presidente ou excluir tudo ?")
+        let opcaoExcluirEmpresa = readlineSync.questionInt("Digite 1 para nome, 2 para presidente, 3 para excluir tudo")
 
-        if (umDois == 1) {
+        if (opcaoExcluirEmpresa == 1) {
 
             let index = readlineSync.question("Escolha o nome que deseja excluir: ");
             empresa.nome.splice(index, 1,)
             console.log("Nome excluida com sucesso")
 
-        } else {
+        } else if (opcaoExcluirEmpresa == 2){
     
             let index = readlineSync.questionInt("Escolha a posição do presidente que deseja excluir: ");
             empresa.presidente.splice(index, 1,)
             console.log("Presidente excluido com sucesso")
 
+        } else if (opcaoExcluirEmpresa == 3) {
+
+            empresa.nome.splice(0,empresa.nome.length)
+            empresa.presidente.splice(0,empresa.presidente.length)
+            console.log("Tudo foi excluido com sucesso")
+
         }
         
-    } else {
+     else {
 
         console.log("Empresa nao encontrada")
-        
-    }
 
-    
+    }
 }
 
 function listarEmpresas() {
@@ -242,15 +237,137 @@ function adicionarFuncionario() {
     }
 }
 
+function alterarFuncionario() {
+
+
+    console.log("Deseja alterar o nome, cargo, empresa ou idade do funcionario ?")
+    let opcaoAlterarFuncionario = readlineSync.questionInt("Digite 1 para nome, 2 para cargo, 3 para empresa, 4 para idade")
+    switch (opcaoAlterarFuncionario) {
+        case 1:
+
+            listarFuncionario()
+            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ");
+            let valorNome = readlineSync.question("Digite o novo nome: ");
+            funcionario.nome.splice(indexNome, 1, valorNome)
+            console.log("Nome alterado com sucesso")
+            
+            break;
+        case 2:
+
+            listarFuncionario()
+            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja alterar: ");
+            let valorCargo = readlineSync.question("Digite o novo cargo: ");
+            funcionario.cargo.splice(indexCargo, 1, valorCargo)
+            console.log("Cargo alterado com sucesso")
+
+            break;
+        case 3:
+
+            listarFuncionario()
+            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja alterar: ");
+            let valorEmpresa = readlineSync.question("Digite o nova empresa: ");
+            funcionario.empresa.splice(indexEmpresa, 1, valorEmpresa)
+            console.log("Empresa alterada com sucesso")
+
+            break;
+        case 4:
+
+            listarFuncionario()
+            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja alterar: ");
+            let valorIdade = readlineSync.questionInt("Digite a nova idade : ");
+            funcionario.idade.splice(indexIdade, 1, valorIdade)
+            console.log("Idade alterada com sucesso")
+
+            break;
+        default:
+
+        console.log("Digite um valor valido")
+
+            break;
+    }
+}
+
+function excluirFuncionario() {
+
+    console.log("Deseja excluir o nome, cargo, empresa ou idade do funcionario ?")
+    let opcaoExcluirFuncionario = readlineSync.questionInt("Digite 1 para nome, 2 para cargo, 3 para empresa, 4 para idade, 5 para excluir tudo")
+    switch (opcaoExcluirFuncionario) {
+        case 1:
+
+            listarFuncionario()
+            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja excluir: ");
+            funcionario.nome.splice(indexNome, 1,)
+            console.log("Nome excluido com sucesso")
+            
+            break;
+        case 2:
+
+            listarFuncionario()
+            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja excluir: ");
+            funcionario.cargo.splice(indexCargo, 1,)
+            console.log("Cargo excluido com sucesso")
+
+            break;
+        case 3:
+
+            listarFuncionario()
+            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja excluir: ");
+            funcionario.empresa.splice(indexEmpresa, 1,)
+            console.log("Empresa excluida com sucesso")
+
+            break;
+        case 4:
+
+            listarFuncionario()
+            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja excluir: ");
+            funcionario.idade.splice(indexIdade, 1,)
+            console.log("Idade excluida com sucesso")
+
+            break;
+        case 5:
+
+            funcionario.nome.splice(0,funcionario.nome.length)
+            funcionario.cargo.splice(0,funcionario.cargo.length)
+            funcionario.idade.splice(0,funcionario.idade.length)
+            funcionario.empresa.splice(0,funcionario.empresa.length)
+            console.log("Tudo foi excluido com sucesso")
+
+            break;
+        default:
+
+        console.log("Digite um valor valido")
+
+            break;
+    }
+}
+
 function listarFuncionario() {
 
-    console.log(`Os funcionarios sao: 
-    ${funcionario.nome} 
-    Os seus cargos sao:
-    ${funcionario.cargo}
-    Trabalham nessa empresa:
-    ${funcionario.empresa} 
-    Tem
-    ${funcionario.idade}
-    Anos`)       
+console.log(`Os funcionarios sao: 
+${funcionario.nome} 
+Os seus cargos sao:
+${funcionario.cargo}
+Trabalham nessa empresa:
+${funcionario.empresa} 
+Tem
+${funcionario.idade}
+Anos`)       
+
+}
+
+function listarFuncionarioPorEmpresa() {
+    let empresaQuero = readlineSync.question("Digite a empresa que deseja achar todos os funcionarios: ");
+    let achaNomeEmpresa = empresa.nome.find(element => element === empresaQuero);
+
+    if (achaNomeEmpresa) {
+        console.log(`Funcionários da ${achaNomeEmpresa}:`);
+        
+        for (let i = 0; i < funcionario.empresa.length; i++) {
+            if (funcionario.empresa[i] === empresaQuero) {
+                console.log(`Nome: ${funcionario.nome[i]}, Cargo: ${funcionario.cargo[i]}, Idade: ${funcionario.idade[i]}`);
+            }
+        }
+    } else {
+        console.log("Empresa não encontrada.");
+    }
 }
