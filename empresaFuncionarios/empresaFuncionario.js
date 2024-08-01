@@ -1,5 +1,6 @@
 //uma empresa varios funcionarios, funcionarios so trabalham para uma empresa
 // funcionario tera empresa, cargo, nome, idade
+// empresa tera nome da empresa, presidente
 
 const readlineSync = require ('readline-sync')
 
