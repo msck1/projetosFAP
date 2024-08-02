@@ -87,9 +87,24 @@ let opcaoempresa = readlineSync.questionInt("Escolha sua opcao:")
             empresas.push(novaEmpresa);        
             break;
         case 2:
+            if (empresas.length > 0) {
+
+                empresas.forEach((empresa, index) => {
+                    console.log(`\nEmpresa ${index + 1}:`);
+                    listarEmpresa(empresa);
+
+                });
+            } else {
+                console.log('Nenhuma empresa adicionada ainda.');
+            }
+
+            const index = readlineSync.questionInt("Digite a posicao da empresa que deseja alterar: " ) - 1
+            alterarEmpresa(empresas[index]);
 
             break;
         case 3:
+
+
         
             break;
         case 4:
@@ -164,6 +179,7 @@ let opcaofuncionario = readlineSync.questionInt("Escolha sua opcao:")
     }
 }
 
+// functions empresa
 
 function adicionarEmpresa(): Empresa {
     
@@ -184,10 +200,38 @@ function listarEmpresa(empresa: Empresa): void {
 
 }
 
-function alterarEmpresa() {
+function alterarEmpresa(empresa: Empresa): void {
 
-    
-    
-}
+console.log(`
+======================
+    ALTERAR EMPRESA
+1. Alterar nome
+2. Alterar presidente
+3. Alterar ambos
+======================
+`);
+    let opcaoAlteracao = readlineSync.questionInt("Escolha sua opcao:");
+        
+        switch (opcaoAlteracao) {
+            case 1:
+                const nomeNovo = readlineSync.question("Digite o novo nome da empresa: ");
+                empresa.nomes = [nomeNovo];
+                break;
+            case 2:
+                const presidenteNovo = readlineSync.question("Digite o novo nome do presidente: ");
+                empresa.presidentes = [presidenteNovo];
+                break;
+            case 3:
+                const novoNome = readlineSync.question("Digite o novo nome da empresa: ");
+                const novoPresidente = readlineSync.question("Digite o novo nome do presidente: ");
+                empresa.nomes = [novoNome];
+                empresa.presidentes = [novoPresidente];
+                break;
+            default:
+                console.log("Opcao invalida.");
+                break;
+            }
+            console.log("Empresa alterada com sucesso!");
+        }
 
 main();

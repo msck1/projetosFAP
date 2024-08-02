@@ -68,10 +68,21 @@ function main() {
                         else {
                             console.log('Nenhuma empresa adicionada ainda.');
                         }
+                        var index = readlineSync.questionInt("Digite a posicao da empresa que deseja alterar: ") - 1;
+                        alterarEmpresa(empresas[index]);
                         break;
                     case 3:
                         break;
                     case 4:
+                        if (empresas.length > 0) {
+                            empresas.forEach(function (empresa, index) {
+                                console.log("\nEmpresa ".concat(index + 1, ":"));
+                                listarEmpresa(empresa);
+                            });
+                        }
+                        else {
+                            console.log('Nenhuma empresa adicionada ainda.');
+                        }
                         break;
                     case 5:
                         break;
@@ -113,6 +124,7 @@ function main() {
         }
     }
 }
+// functions empresa
 function adicionarEmpresa() {
     var empresaNome = readlineSync.question("Digite o nome da empresa: ");
     var presidenteNome = readlineSync.question("Digite o nome do presidente: ");
@@ -122,5 +134,29 @@ function adicionarEmpresa() {
 function listarEmpresa(empresa) {
     console.log("Nome da empresa: ".concat(empresa.nomes));
     console.log("Presidente da empresa: ".concat(empresa.presidentes));
+}
+function alterarEmpresa(empresa) {
+    console.log("\n======================\n    ALTERAR EMPRESA\n1. Alterar nome\n2. Alterar presidente\n3. Alterar ambos\n======================\n");
+    var opcaoAlteracao = readlineSync.questionInt("Escolha sua opcao:");
+    switch (opcaoAlteracao) {
+        case 1:
+            var nomeNovo = readlineSync.question("Digite o novo nome da empresa: ");
+            empresa.nomes = [nomeNovo];
+            break;
+        case 2:
+            var presidenteNovo = readlineSync.question("Digite o novo nome do presidente: ");
+            empresa.presidentes = [presidenteNovo];
+            break;
+        case 3:
+            var novoNome = readlineSync.question("Digite o novo nome da empresa: ");
+            var novoPresidente = readlineSync.question("Digite o novo nome do presidente: ");
+            empresa.nomes = [novoNome];
+            empresa.presidentes = [novoPresidente];
+            break;
+        default:
+            console.log("Opcao invalida.");
+            break;
+    }
+    console.log("Empresa alterada com sucesso!");
 }
 main();

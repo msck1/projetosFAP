@@ -151,20 +151,32 @@ function alterarEmpresa() {
 
     listarEmpresas()
     console.log("Deseja alterar o nome da empresa ou o presidente ?")
-    let umDois = readlineSync.questionInt("Digite 1 para nome 2 para presidente")
-    if (umDois == 1) {
+    let opcaoAlterar = readlineSync.questionInt("Digite 1 para nome, 2 para presidente, 3 para alterar os dois")
+    if (opcaoAlterar == 1) {
 
-        let index = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ");
-        let valor = readlineSync.question("Digite o novo nome: ");
-        empresa.nome.splice(index, 1, valor)
+        let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ") - 1;
+        let valorNome = readlineSync.question("Digite o novo nome: ");
+        empresa.nome.splice(indexNome, 1, valorNome)
         console.log("Nome alterado com sucesso")
 
-    } else {
+    } else if (opcaoAlterar == 2) {
 
-        let index = readlineSync.questionInt("Escolha a posição do presidente que deseja alterar: ");
-        let valor = readlineSync.question("Digite o novo presidente: ");
-        empresa.presidente.splice(index, 1, valor)
+        let indexPresidente = readlineSync.questionInt("Escolha a posição do presidente que deseja alterar: ") - 1;
+        let valorPresidente = readlineSync.question("Digite o novo presidente: ");
+        empresa.presidente.splice(indexPresidente, 1, valorPresidente)
         console.log("Presidente alterado com sucesso")
+
+    } else if (opcaoAlterar == 3) {
+
+        let indexNomeNovo = readlineSync.questionInt("Digite a posicao do nome que deseja alterar: ") - 1;
+        let valorNomeNovo = readlineSync.question("Digite o novo nome: ");
+        empresa.nome.splice(indexNomeNovo, 1, valorNomeNovo)
+
+        let indexPresidenteNovo = readlineSync.questionInt("Digite a posicao do presidente que deseja alterar: ") - 1;
+        let valorPresidenteNovo = readlineSync.question("Digite o novo nome do presidente: ")
+        empresa.presidente.splice(indexPresidenteNovo, 1, valorPresidenteNovo)
+
+        console.log("Empresas alterado com sucesso!")
 
     }
 }
@@ -179,13 +191,13 @@ function excluirEmpresa() {
 
         if (opcaoExcluirEmpresa == 1) {
 
-            let index = readlineSync.question("Escolha o nome que deseja excluir: ");
+            let index = readlineSync.question("Escolha a posicao do nome que deseja excluir: ") - 1;
             empresa.nome.splice(index, 1,)
             console.log("Nome excluida com sucesso")
 
         } else if (opcaoExcluirEmpresa == 2){
     
-            let index = readlineSync.questionInt("Escolha a posição do presidente que deseja excluir: ");
+            let index = readlineSync.questionInt("Escolha a posição do presidente que deseja excluir: ") - 1;
             empresa.presidente.splice(index, 1,)
             console.log("Presidente excluido com sucesso")
 
@@ -206,12 +218,15 @@ function excluirEmpresa() {
 
 function listarEmpresas() {
 
-console.log(`As suas empresas sao:
-${empresa.nome}
-Os presidentes sao:
-${empresa.presidente}
-`)    
+    console.log("Lista de Empresas:");
+    empresa.nome.forEach((nome, index) => {
+        console.log(`\nEmpresa ${index + 1}:`);
+        console.log(`Nome da empresa: ${nome}`);
+        console.log(`Presidente da empresa: ${empresa.presidente[index]}`);
+
+    });
 }
+
 
 // function funcionarios
 
@@ -242,47 +257,69 @@ function alterarFuncionario() {
 
 
     console.log("Deseja alterar o nome, cargo, empresa ou idade do funcionario ?")
-    let opcaoAlterarFuncionario = readlineSync.questionInt("Digite 1 para nome, 2 para cargo, 3 para empresa, 4 para idade")
+    let opcaoAlterarFuncionario = readlineSync.questionInt("Digite 1 para nome, 2 para cargo, 3 para empresa, 4 para idade, 5 para alterar tudo")
     switch (opcaoAlterarFuncionario) {
         case 1:
 
             listarFuncionario()
-            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ");
+            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja alterar: ") - 1;
             let valorNome = readlineSync.question("Digite o novo nome: ");
-            funcionario.nome.splice(indexNome, 1, valorNome)
-            console.log("Nome alterado com sucesso")
+            funcionario.nome.splice(indexNome, 1, valorNome);
+            console.log("Nome alterado com sucesso");
             
             break;
         case 2:
 
             listarFuncionario()
-            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja alterar: ");
+            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja alterar: ") - 1;
             let valorCargo = readlineSync.question("Digite o novo cargo: ");
-            funcionario.cargo.splice(indexCargo, 1, valorCargo)
-            console.log("Cargo alterado com sucesso")
+            funcionario.cargo.splice(indexCargo, 1, valorCargo);
+            console.log("Cargo alterado com sucesso");
 
             break;
         case 3:
 
             listarFuncionario()
-            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja alterar: ");
+            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja alterar: ") - 1;
             let valorEmpresa = readlineSync.question("Digite o nova empresa: ");
-            funcionario.empresa.splice(indexEmpresa, 1, valorEmpresa)
-            console.log("Empresa alterada com sucesso")
+            funcionario.empresa.splice(indexEmpresa, 1, valorEmpresa);
+            console.log("Empresa alterada com sucesso");
 
             break;
         case 4:
 
             listarFuncionario()
-            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja alterar: ");
+            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja alterar: ") - 1;
             let valorIdade = readlineSync.questionInt("Digite a nova idade : ");
-            funcionario.idade.splice(indexIdade, 1, valorIdade)
-            console.log("Idade alterada com sucesso")
+            funcionario.idade.splice(indexIdade, 1, valorIdade);
+            console.log("Idade alterada com sucesso");
+
+            break;
+        case 5:
+
+            listarFuncionario()
+            let indexNomeNovo = readlineSync.questionInt("Digite a posicao do nome novo: ") - 1;
+            let valorNomeNovo = readlineSync.question("Digite o nome novo: ");
+            funcionario.nome.splice(indexNomeNovo, 1, valorNomeNovo);
+
+            let indexCargoNovo = readlineSync.questionInt("Digite a posicao do cargo novo") - 1;
+            let valorCargoNovo = readlineSync.question("Digite o cargo novo: ");
+            funcionario.cargo.splice(indexCargoNovo, 1, valorCargoNovo);
+
+            let indexEmpresaNova = readlineSync.questionInt("Digite a posicao da empresa nova: ") - 1;
+            let valorEmpresaNova = readlineSync.question("Digite a empresa nova: ");
+            funcionario.empresa.splice(indexEmpresaNova, 1, valorEmpresaNova);
+
+            let indexIdadeNova = readlineSync.questionInt("Digite a posicao da idade nova: ") - 1;
+            let valorIdadeNova = readlineSync.questionInt("Digite a idade nova: ");
+            funcionario.idade.splice(indexIdadeNova, 1, valorIdadeNova);
+
+            console.log("Funcionario alterado com sucesso")
 
             break;
         default:
 
-        console.log("Digite um valor valido")
+        console.log("Digite um valor valido");
 
             break;
     }
@@ -296,7 +333,7 @@ function excluirFuncionario() {
         case 1:
 
             listarFuncionario()
-            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja excluir: ");
+            let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja excluir: ") - 1;
             funcionario.nome.splice(indexNome, 1,)
             console.log("Nome excluido com sucesso")
             
@@ -304,7 +341,7 @@ function excluirFuncionario() {
         case 2:
 
             listarFuncionario()
-            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja excluir: ");
+            let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja excluir: ") - 1;
             funcionario.cargo.splice(indexCargo, 1,)
             console.log("Cargo excluido com sucesso")
 
@@ -312,7 +349,7 @@ function excluirFuncionario() {
         case 3:
 
             listarFuncionario()
-            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja excluir: ");
+            let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja excluir: ") - 1;
             funcionario.empresa.splice(indexEmpresa, 1,)
             console.log("Empresa excluida com sucesso")
 
@@ -320,7 +357,7 @@ function excluirFuncionario() {
         case 4:
 
             listarFuncionario()
-            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja excluir: ");
+            let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja excluir: ") - 1;
             funcionario.idade.splice(indexIdade, 1,)
             console.log("Idade excluida com sucesso")
 
@@ -344,17 +381,16 @@ function excluirFuncionario() {
 
 function listarFuncionario() {
 
-console.log(`Os funcionarios sao: 
-${funcionario.nome} 
-Os seus cargos sao:
-${funcionario.cargo}
-Trabalham nessa empresa:
-${funcionario.empresa} 
-Tem
-${funcionario.idade}
-Anos`)       
-
+    console.log("Lista de Funcionários:");
+    funcionario.nome.forEach((nome, index) => {
+        console.log(`\nFuncionário ${index + 1}:`);
+        console.log(`Nome: ${nome}`);
+        console.log(`Cargo: ${funcionario.cargo[index]}`);
+        console.log(`Empresa: ${funcionario.empresa[index]}`);
+        console.log(`Idade: ${funcionario.idade[index]}`);
+    });
 }
+
 
 function listarFuncionarioPorEmpresa() {
     let empresaQuero = readlineSync.question("Digite a empresa que deseja achar todos os funcionarios: ");
