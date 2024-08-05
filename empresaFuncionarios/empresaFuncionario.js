@@ -140,11 +140,44 @@ break;
 // function empresas
 
 function adicionarEmpresa() {
-  
-empresa.nome.push(readlineSync.question("Digite o nome da empresa:"))
 
-empresa.presidente.push(readlineSync.question("Digite o nome do presidente:"))
+    console.log("Deseja atribuir um nome ou presidente a uma empresa existente ou adicionar uma empresa nova ?") 
+    let opcaoAdicionar = readlineSync.questionInt("Digite 1 para nome, 2 para presidente, 3 para criar uma empresa nova")
+
+    if (opcaoAdicionar == 1) {
+
+        listarEmpresas()
+        let index = readlineSync.questionInt("Escolha a posição da empresa à qual deseja adicionar o nome: ") - 1;
+        let nomeNovo = readlineSync.question("Digite o novo nome da empresa: ");
+        if (empresa.nome[index]) {
+            empresa.nome.splice(index, 0, nomeNovo);
+        } else {
+            empresa.nome[index] = nomeNovo;
+        }
+        console.log("Nome adicionado com sucesso!")
+        
+    } else if (opcaoAdicionar == 2) {
+
+        listarEmpresas();
+        let index = readlineSync.questionInt("Escolha a posição da empresa à qual deseja adicionar o presidente: ") - 1;
+        let presidenteNovo = readlineSync.question("Digite o nome do novo presidente: ");
+        if (empresa.presidente[index]) {
+            empresa.presidente.splice(index, 0, presidenteNovo);
+        } else {
+            empresa.presidente[index] = presidenteNovo;
+        }
+        console.log("Presidente adicionado com sucesso!")
+
+    } else if (opcaoAdicionar == 3) {
+ 
+        empresa.nome.push(readlineSync.question("Digite o nome da empresa:"))
+
+        empresa.presidente.push(readlineSync.question("Digite o nome do presidente:"))
+
+        console.log("Empresa adicionada com sucesso!")
     
+    }
+  
 }
 
 function alterarEmpresa() {
@@ -191,14 +224,14 @@ function excluirEmpresa() {
 
         if (opcaoExcluirEmpresa == 1) {
 
-            let index = readlineSync.question("Escolha a posicao do nome que deseja excluir: ") - 1;
-            empresa.nome.splice(index, 1,)
+            let index = readlineSync.questionInt("Escolha a posicao do nome que deseja excluir: ") - 1;
+            empresa.nome[index] = undefined;
             console.log("Nome excluida com sucesso")
 
         } else if (opcaoExcluirEmpresa == 2){
     
             let index = readlineSync.questionInt("Escolha a posição do presidente que deseja excluir: ") - 1;
-            empresa.presidente.splice(index, 1,)
+            empresa.presidente[index] = undefined;
             console.log("Presidente excluido com sucesso")
 
         } else if (opcaoExcluirEmpresa == 3) {
@@ -218,13 +251,19 @@ function excluirEmpresa() {
 
 function listarEmpresas() {
 
-    console.log("Lista de Empresas:");
-    empresa.nome.forEach((nome, index) => {
-        console.log(`\nEmpresa ${index + 1}:`);
-        console.log(`Nome da empresa: ${nome}`);
-        console.log(`Presidente da empresa: ${empresa.presidente[index]}`);
+    if (empresa.nome.length <= 0) {
 
-    });
+        console.log("Nenhum empresa cadastrada")
+
+    } else {
+
+        console.log("Lista de Empresas:");
+        empresa.nome.forEach((nome , index) => {
+            console.log(`\nEmpresa ${index + 1}:`);
+            console.log(`Nome da empresa: ${nome !== undefined ? nome : "Indefinido"}`);
+            console.log(`Presidente da empresa: ${empresa.presidente[index] !== undefined ? empresa.presidente[index] : "Indefinido"}`);
+        });
+    }
 }
 
 
@@ -334,7 +373,7 @@ function excluirFuncionario() {
 
             listarFuncionario()
             let indexNome = readlineSync.questionInt("Escolha a posição do nome que deseja excluir: ") - 1;
-            funcionario.nome.splice(indexNome, 1,)
+            funcionario.nome[indexNome] = undefined;
             console.log("Nome excluido com sucesso")
             
             break;
@@ -342,7 +381,7 @@ function excluirFuncionario() {
 
             listarFuncionario()
             let indexCargo = readlineSync.questionInt("Escolha a posição do cargo que deseja excluir: ") - 1;
-            funcionario.cargo.splice(indexCargo, 1,)
+            funcionario.cargo[indexCargo] = undefined;
             console.log("Cargo excluido com sucesso")
 
             break;
@@ -350,7 +389,7 @@ function excluirFuncionario() {
 
             listarFuncionario()
             let indexEmpresa = readlineSync.questionInt("Escolha a posição da empresa que deseja excluir: ") - 1;
-            funcionario.empresa.splice(indexEmpresa, 1,)
+            funcionario.empresa[indexEmpresa] = undefined
             console.log("Empresa excluida com sucesso")
 
             break;
@@ -358,7 +397,7 @@ function excluirFuncionario() {
 
             listarFuncionario()
             let indexIdade = readlineSync.questionInt("Escolha a posição da idade que deseja excluir: ") - 1;
-            funcionario.idade.splice(indexIdade, 1,)
+            funcionario.idade[indexIdade] = undefined;
             console.log("Idade excluida com sucesso")
 
             break;
@@ -366,8 +405,8 @@ function excluirFuncionario() {
 
             funcionario.nome.splice(0,funcionario.nome.length)
             funcionario.cargo.splice(0,funcionario.cargo.length)
-            funcionario.idade.splice(0,funcionario.idade.length)
             funcionario.empresa.splice(0,funcionario.empresa.length)
+            funcionario.idade.splice(0,funcionario.idade.length)
             console.log("Tudo foi excluido com sucesso")
 
             break;
@@ -381,14 +420,22 @@ function excluirFuncionario() {
 
 function listarFuncionario() {
 
-    console.log("Lista de Funcionários:");
-    funcionario.nome.forEach((nome, index) => {
-        console.log(`\nFuncionário ${index + 1}:`);
-        console.log(`Nome: ${nome}`);
-        console.log(`Cargo: ${funcionario.cargo[index]}`);
-        console.log(`Empresa: ${funcionario.empresa[index]}`);
-        console.log(`Idade: ${funcionario.idade[index]}`);
-    });
+    if (funcionario.nome.length <= 0) {
+
+        console.log("Nenhum funcionario cadastrado")
+
+    } else {
+
+            console.log("Lista de Funcionários:");
+            funcionario.nome.forEach((nome, index) => {
+            console.log(`\nFuncionário ${index + 1}:`);
+            console.log(`Nome: ${nome !== undefined ? nome : "Indefinido"}`);
+            console.log(`Cargo: ${funcionario.cargo[index] !== undefined ? funcionario.cargo[index] : "Indefinido"}`);
+            console.log(`Empresa: ${funcionario.empresa[index] !== undefined ? funcionario.empresa[index] : "Indefinido"}`);
+            console.log(`Idade: ${funcionario.idade[index] !== undefined ? funcionario.idade[index] : "Indefinido"}`);
+
+        });
+    }
 }
 
 
@@ -398,11 +445,16 @@ function listarFuncionarioPorEmpresa() {
 
     if (achaNomeEmpresa) {
         console.log(`Funcionários da ${achaNomeEmpresa}:`);
-        
+
+        if (funcionario.empresa === empresaQuero || funcionario.empresa.length <= 0) {
+            console.log("Nenhum funcionario cadastrado nessa empresa")
+        }
+    
         for (let i = 0; i < funcionario.empresa.length; i++) {
+
             if (funcionario.empresa[i] === empresaQuero) {
                 console.log(`Nome: ${funcionario.nome[i]}, Cargo: ${funcionario.cargo[i]}, Idade: ${funcionario.idade[i]}`);
-            }
+            }  
         }
     } else {
         console.log("Empresa não encontrada.");
