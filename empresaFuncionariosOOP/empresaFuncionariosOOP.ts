@@ -1,4 +1,5 @@
 const readlineSync = require ('readline-sync')
+// trocar por import * as readlineSync from 'readline-sync'
 
 // classe empresa
 class Empresa {
@@ -34,19 +35,52 @@ class Empresa {
 // classe funcionario
 class Funcionario {
 
-    nome:string[] = [];
-    idade:number[] = [];
-    cargo:string[] = [];
-    empresa:string[] = [];
+    private _nome:string[] = [];
+    private _idade:number[] = [];
+    private _cargo:string[] = [];
+    private _empresa:string[] = [];
 
     constructor(nome:string[],idade:number[],empresa:string[],cargo:string[]) {
 
-        this.nome = nome;
-        this.idade = idade;
-        this.empresa = empresa;
-        this.cargo = cargo
+        this._nome = nome;
+        this._idade = idade;
+        this._empresa = empresa;
+        this._cargo = cargo
         
     }
+
+    public get nomes():string[] {
+        return this._nome;
+    }
+
+    public set nomes(nomesFuncionario:string[]) {
+        this._nome = nomesFuncionario;        
+    }
+
+    public get idade():number[] {
+        return this._idade    
+    }
+
+    public set idade(idade:number[]) {
+        this._idade = idade;
+    }
+
+    public get empresa():string[] {
+        return this._empresa
+    }
+
+    public set empresa(empresa:string[]) {
+        this._empresa = empresa;
+    }
+
+    public get cargo():string[] {
+        return this._cargo
+    }
+
+    public set cargo(cargo:string[]) {
+        this._cargo = cargo
+    }
+    
 }
 
 function main(): void {
@@ -98,12 +132,25 @@ let opcaoempresa = readlineSync.questionInt("Escolha sua opcao:")
                 console.log('Nenhuma empresa adicionada ainda.');
             }
 
-            const index = readlineSync.questionInt("Digite a posicao da empresa que deseja alterar: " ) - 1
-            alterarEmpresa(empresas[index]);
+            const indexAlterar = readlineSync.questionInt("Digite a posicao do que deseja alterar: " ) - 1;
+            alterarEmpresa(empresas[indexAlterar]);
 
             break;
         case 3:
+            if (empresas.length > 0) {
 
+                empresas.forEach((empresa, index) => {
+                    console.log(`\nEmpresa ${index + 1}:`);
+                    listarEmpresa(empresa);
+
+                });
+            } else {
+                console.log('Nenhuma empresa adicionada ainda.');
+            }
+
+            const indexExcluir = readlineSync.questionInt("Digite a posicao do que deseja excluir: ") - 1;
+
+            excluirEmpresa(empresas[indexExcluir])
 
         
             break;
@@ -232,6 +279,46 @@ console.log(`
                 break;
             }
             console.log("Empresa alterada com sucesso!");
+        }
+
+function excluirEmpresa(empresa: Empresa): void {
+
+console.log(`
+======================
+    EXCLUIR EMPRESA
+1. Excluir nome
+2. Excluir presidente
+3. Excluir ambos
+======================
+`);
+
+    let opcaoExcluir = readlineSync.questionInt("Escolha sua opcao:");
+
+        switch (opcaoExcluir) {
+            case 1:
+
+                let undefinedNome:string = "Indefinido"  
+                empresa.nomes = [undefinedNome]
+                
+                break;
+            case 2:
+
+                let undefinedPresidente:string = "Indefinido"  
+                empresa.nomes = [undefinedPresidente]
+
+                break;
+            case 3:
+
+                empresa.nomes.splice(0, empresa.nomes.length)
+                empresa.presidentes.splice(0, empresa.presidentes.length)
+
+                break;
+            default:
+
+                console.log("Opcao invalida.");
+                break;
+            }
+            console.log("Empresa excluida com sucesso!")
         }
 
 main();
