@@ -1,4 +1,4 @@
-const readlineSync = require ('readline-sync')
+import * as readlineSync from 'readline-sync'
 // trocar por import * as readlineSync from 'readline-sync'
 
 // classe empresa
@@ -304,7 +304,7 @@ console.log(`
             case 2:
 
                 let undefinedPresidente:string = "Indefinido"  
-                empresa.nomes = [undefinedPresidente]
+                empresa.presidentes = [undefinedPresidente]
 
                 break;
             case 3:

@@ -1,4 +1,7 @@
-var readlineSync = require('readline-sync');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var readlineSync = require("readline-sync");
+// trocar por import * as readlineSync from 'readline-sync'
 // classe empresa
 var Empresa = /** @class */ (function () {
     function Empresa(nome, presidente) {
@@ -32,15 +35,55 @@ var Empresa = /** @class */ (function () {
 // classe funcionario
 var Funcionario = /** @class */ (function () {
     function Funcionario(nome, idade, empresa, cargo) {
-        this.nome = [];
-        this.idade = [];
-        this.cargo = [];
-        this.empresa = [];
-        this.nome = nome;
-        this.idade = idade;
-        this.empresa = empresa;
-        this.cargo = cargo;
+        this._nome = [];
+        this._idade = [];
+        this._cargo = [];
+        this._empresa = [];
+        this._nome = nome;
+        this._idade = idade;
+        this._empresa = empresa;
+        this._cargo = cargo;
     }
+    Object.defineProperty(Funcionario.prototype, "nomes", {
+        get: function () {
+            return this._nome;
+        },
+        set: function (nomesFuncionario) {
+            this._nome = nomesFuncionario;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Funcionario.prototype, "idade", {
+        get: function () {
+            return this._idade;
+        },
+        set: function (idade) {
+            this._idade = idade;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Funcionario.prototype, "empresa", {
+        get: function () {
+            return this._empresa;
+        },
+        set: function (empresa) {
+            this._empresa = empresa;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Funcionario.prototype, "cargo", {
+        get: function () {
+            return this._cargo;
+        },
+        set: function (cargo) {
+            this._cargo = cargo;
+        },
+        enumerable: false,
+        configurable: true
+    });
     return Funcionario;
 }());
 function main() {
@@ -68,10 +111,21 @@ function main() {
                         else {
                             console.log('Nenhuma empresa adicionada ainda.');
                         }
-                        var index = readlineSync.questionInt("Digite a posicao da empresa que deseja alterar: ") - 1;
-                        alterarEmpresa(empresas[index]);
+                        var indexAlterar = readlineSync.questionInt("Digite a posicao do que deseja alterar: ") - 1;
+                        alterarEmpresa(empresas[indexAlterar]);
                         break;
                     case 3:
+                        if (empresas.length > 0) {
+                            empresas.forEach(function (empresa, index) {
+                                console.log("\nEmpresa ".concat(index + 1, ":"));
+                                listarEmpresa(empresa);
+                            });
+                        }
+                        else {
+                            console.log('Nenhuma empresa adicionada ainda.');
+                        }
+                        var indexExcluir = readlineSync.questionInt("Digite a posicao do que deseja excluir: ") - 1;
+                        excluirEmpresa(empresas[indexExcluir]);
                         break;
                     case 4:
                         if (empresas.length > 0) {
@@ -158,5 +212,27 @@ function alterarEmpresa(empresa) {
             break;
     }
     console.log("Empresa alterada com sucesso!");
+}
+function excluirEmpresa(empresa) {
+    console.log("\n======================\n    EXCLUIR EMPRESA\n1. Excluir nome\n2. Excluir presidente\n3. Excluir ambos\n======================\n");
+    var opcaoExcluir = readlineSync.questionInt("Escolha sua opcao:");
+    switch (opcaoExcluir) {
+        case 1:
+            var undefinedNome = "Indefinido";
+            empresa.nomes = [undefinedNome];
+            break;
+        case 2:
+            var undefinedPresidente = "Indefinido";
+            empresa.presidentes = [undefinedPresidente];
+            break;
+        case 3:
+            empresa.nomes.splice(0, empresa.nomes.length);
+            empresa.presidentes.splice(0, empresa.presidentes.length);
+            break;
+        default:
+            console.log("Opcao invalida.");
+            break;
+    }
+    console.log("Empresa excluida com sucesso!");
 }
 main();
