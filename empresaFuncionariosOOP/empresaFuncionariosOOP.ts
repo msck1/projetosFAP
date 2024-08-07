@@ -1,5 +1,5 @@
 import * as readlineSync from 'readline-sync'
-// trocar por import * as readlineSync from 'readline-sync'
+
 
 // classe empresa
 class Empresa {
